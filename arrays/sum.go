@@ -1,5 +1,6 @@
 package main
 
+// Sums all numbers in a slice and retruns the value
 func Sum(nums []int) int {
 	var sum int
 	for _, number := range nums {
@@ -9,11 +10,23 @@ func Sum(nums []int) int {
 }
 
 func SumAll(numbersToSum ...[]int) []int {
-	lengthOfNumbers := len(numbersToSum)
-	sums := make([]int, lengthOfNumbers)
+	var sums []int
+	for _, numbers := range numbersToSum {
+		sums = append(sums, Sum(numbers))
+	}
 
-	for i, numbers := range numbersToSum {
-		sums[i] = Sum(numbers)
+	return sums
+}
+
+func SumAllTails(numbersToSum ...[]int) []int {
+	var sums []int
+	for _, numbers := range numbersToSum {
+		if len(numbers) == 0 {
+			sums = append(sums, 0)
+		} else {
+			tail := numbers[1:]
+			sums = append(sums, Sum(tail))
+		}
 	}
 	return sums
 }
