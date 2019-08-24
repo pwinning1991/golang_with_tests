@@ -13,3 +13,7 @@ func (d Dictonary) Search(word string) (string, error) {
 	}
 	return definition, nil
 }
+
+func (d Dictonary) Add(word, defintion string) {
+	d[word] = defintion
+}
