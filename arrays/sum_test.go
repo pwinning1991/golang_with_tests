@@ -18,8 +18,8 @@ func TestSum(t *testing.T) {
 	})
 }
 
-func ExampleSum(t *testing.T) {
+func ExampleSum() {
 	numbers := []int{1, 2, 3, 4, 5}
 	fmt.Println(Sum(numbers))
-	//Output 15
+	// Output: 15
 }
