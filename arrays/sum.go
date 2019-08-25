@@ -1,4 +1,4 @@
-package main
+package arrays
 
 // Sums all numbers in a slice and retruns the value
 func Sum(nums []int) int {
