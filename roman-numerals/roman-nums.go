@@ -10,6 +10,9 @@ type RomanNumeral struct {
 }
 
 var RomanNumerals = []RomanNumeral{
+	{1000, "M"},
+	{500, "D"},
+	{100, "C"},
 	{50, "L"},
 	{40, "XL"},
 	{10, "X"},
