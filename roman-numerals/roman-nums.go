@@ -1,15 +1,58 @@
-package roman
+package v1
 
-import (
-	"strings"
-)
+import "strings"
 
-type RomanNumeral struct {
-	Value  int
+// ConvertToArabic converts a Roman Numeral to an Arabic number
+func ConvertToArabic(roman string) (total uint16) {
+	for _, symbols := range windowedRoman(roman).Symbols() {
+		total += allRomanNumerals.ValueOf(symbols...)
+	}
+	return
+}
+
+// ConvertToRoman converts an Arabic number to a Roman Numeral
+func ConvertToRoman(arabic uint16) string {
+	var result strings.Builder
+
+	for _, numeral := range allRomanNumerals {
+		for arabic >= numeral.Value {
+			result.WriteString(numeral.Symbol)
+			arabic -= numeral.Value
+		}
+	}
+
+	return result.String()
+}
+
+type romanNumeral struct {
+	Value  uint16
 	Symbol string
 }
 
-var RomanNumerals = []RomanNumeral{
+type romanNumerals []romanNumeral
+
+func (r romanNumerals) ValueOf(symbols ...byte) uint16 {
+	symbol := string(symbols)
+	for _, s := range r {
+		if s.Symbol == symbol {
+			return s.Value
+		}
+	}
+
+	return 0
+}
+
+func (r romanNumerals) Exists(symbols ...byte) bool {
+	symbol := string(symbols)
+	for _, s := range r {
+		if s.Symbol == symbol {
+			return true
+		}
+	}
+	return false
+}
+
+var allRomanNumerals = romanNumerals{
 	{1000, "M"},
 	{900, "CM"},
 	{500, "D"},
@@ -25,34 +68,23 @@ var RomanNumerals = []RomanNumeral{
 	{1, "I"},
 }
 
-func (r RomanNumerals) ValueOf(symbol string) int {
-	for _, s := range r {
-		if s.Symbol == symbol {
-			return s.Value
+type windowedRoman string
+
+func (w windowedRoman) Symbols() (symbols [][]byte) {
+	for i := 0; i < len(w); i++ {
+		symbol := w[i]
+		notAtEnd := i+1 < len(w)
+
+		if notAtEnd && isSubtractive(symbol) && allRomanNumerals.Exists(symbol, w[i+1]) {
+			symbols = append(symbols, []byte{byte(symbol), byte(w[i+1])})
+			i++
+		} else {
+			symbols = append(symbols, []byte{byte(symbol)})
 		}
 	}
-
-	return 0
+	return
 }
 
-func ConvertToRoman(arabic int) string {
-	var result strings.Builder
-
-	for _, numeral := range RomanNumerals {
-		for arabic >= numeral.Value {
-			result.WriteString(numeral.Symbol)
-			arabic -= numeral.Value
-		}
-	}
-	return result.String()
-}
-
-func ConvertToArabic(roman string) int {
-	if roman == "III" {
-		return 3
-	}
-	if roman == "II" {
-		return 2
-	}
-	return 1
+func isSubtractive(symbol uint8) bool {
+	return symbol == 'I' || symbol == 'X' || symbol == 'C'
 }
