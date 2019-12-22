@@ -2,7 +2,7 @@ package poker_test
 
 import (
 	"bytes"
-	poker "github.com/pwinning1991/golang_with_tests/time"
+	"github.com/pwinning1991/golang_with_tests/time"
 	"io"
 	"strings"
 	"testing"
