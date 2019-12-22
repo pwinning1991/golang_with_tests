@@ -14,10 +14,6 @@ type CLI struct {
 	alerter BlindAlerter
 }
 
-type BlindAlerter interface {
-	ScheduleAlertAt(duration time.Duration, amount int)
-}
-
 // NewCLI creates a CLI for playing poker
 func NewCLI(store PlayerStore, in io.Reader, alerter BlindAlerter) *CLI {
 	return &CLI{
