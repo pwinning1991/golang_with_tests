@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/pwinning1991/golang_with_tests/command-line"
+	"github.com/pwinning1991/golang_with_tests/time"
 	"log"
 	"os"
 )
