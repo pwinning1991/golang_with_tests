@@ -23,6 +23,6 @@ func main() {
 		log.Fatalf("could not listen on port 5000 %v", err)
 	}
 
-	game := poker.NewCLI(store, os.Stdin)
+	game := poker.NewCLI(store, os.Stdin, poker.BlindAlerterFunc(poker.StdOutAlerter))
 	game.PlayPoker()
 }
