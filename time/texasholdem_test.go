@@ -1,10 +1,10 @@
 package poker_test
 
 import (
-"fmt"
-"github.com/pwinning1991/golang_with_tests/time"
-"testing"
-"time"
+	"fmt"
+	"github.com/pwinning1991/golang_with_tests/time"
+	"testing"
+	"time"
 )
 
 func TestGame_Start(t *testing.T) {
